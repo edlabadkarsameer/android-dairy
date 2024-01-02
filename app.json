@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "initial",
-    "slug": "initial",
+    "name": "Dear Diary",
+    "slug": "edlabadkarsameer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#73c2be"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,11 +20,18 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#000"
+      },
+      "package": "com.edlabadkarsameer.edlabadkarsameer"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "92c2e6de-6446-401d-8592-690e3442538c"
+      }
+    },
+    "owner": "edlabadkarsameer"
   }
 }
