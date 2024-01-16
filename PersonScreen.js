@@ -2,9 +2,23 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet } from 'react-native';
 import WriteEntryScreen from './WriteEntryScreen';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import the icon library
+import ReadEntryScreen from './ReadEntryScreen';
+import { Ionicons } from '@expo/vector-icons';
+import { useFonts } from 'expo-font';
 
-
+const MyComponent = () => {
+    const [loaded] = useFonts({
+      Ionicons: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
+    });
+  
+    if (!loaded) {
+      return (
+        // Render a loading indicator or null, depending on your preference
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      );
+    }}
 
 
 const ReadScreen = () => (
@@ -12,7 +26,7 @@ const ReadScreen = () => (
     <Text>Read your entries here</Text>
   </View>
 );
-
+  
 const Sameere = () => (
   <View style={styles.container}>
     <Text>Sameer's entries here</Text>
@@ -39,18 +53,22 @@ const PersonScreen = ({ route }) => {
         name="Write"
         component={WriteEntryScreen}
         options={{
+          tabBarLabel: 'Write',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="pencil" color={color} size={size} />
+            <Ionicons name="ios-create" size={size} color={'#73c2be'} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
         name="Read"
-        component={ReadScreen}
+        component={ReadEntryScreen}
         options={{
+          tabBarLabel: 'Read',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="book" color={color} size={size} />
+            <Ionicons name="ios-book" size={size} color={'#73c2be'} />
           ),
+          headerShown: false,
         }}
       />
       {isSameerActive && (
@@ -58,8 +76,9 @@ const PersonScreen = ({ route }) => {
           name="Aarya"
           component={Aaryaa}
           options={{
+            tabBarLabel: 'Aarya',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account" color={color} size={size} />
+              <Ionicons name="ios-person" size={size} color={'#73c2be'} />
             ),
           }}
         />
@@ -69,8 +88,9 @@ const PersonScreen = ({ route }) => {
           name="Sameer"
           component={Sameere}
           options={{
+            tabBarLabel: 'Sameer',
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="account" color={color} size={size} />
+              <Ionicons name="ios-person" size={size} color={'#73c2be'} />
             ),
           }}
         />
@@ -85,6 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    color: '#73c2be',
   },
 });
 

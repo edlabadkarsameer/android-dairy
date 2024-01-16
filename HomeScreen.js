@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
         <CustomButton
           onPress={() => navigation.navigate('Person', { name: 'Aarya' })}
           imageSource={require("./assets/laddy.png")}
-          buttonText="Aarya"
+          buttonText="Aarya" 
         />
         <CustomButton
           onPress={() => navigation.navigate('Person', { name: 'Sameer' })}
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 10,
+  },
+  buttonText: {
+    fontFamily: 'Cochin', // Apply the Cochin font to the text
   },
 });
 
