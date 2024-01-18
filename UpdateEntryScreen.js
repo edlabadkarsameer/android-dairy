@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import firebase from './firebaseconfig.js';
 
-const WriteEntryScreen = ({ user }) => {
+const UpdateEntryScreen = () => {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [entry, setEntry] = useState('');
@@ -13,7 +12,7 @@ const WriteEntryScreen = ({ user }) => {
     if (selectedDate !== undefined) {
       setDate(selectedDate);
     }
-  };
+  };1
 
   const handleSubmit = () => {
     if (!date) {
@@ -21,18 +20,7 @@ const WriteEntryScreen = ({ user }) => {
     } else if (entry.trim() === '') {
       Alert.alert('Oh Noo 😔', 'You have not added the details.');
     } else {
-      // Format the date as dd-mm-yyyy
-      const formattedDate = date.toLocaleDateString('en-GB');
-  
-      // Save the entry with user information to the database
-      const databaseRef = firebase.database().ref(`entries/${user}`);
-      const newEntryRef = databaseRef.push();
-      newEntryRef.set({
-        date: formattedDate,
-        entry,
-      });
-  
-      console.log('Date:', formattedDate);
+      console.log('Date:', date);
       console.log('Entry:', entry);
       Alert.alert('Hurrah 🎉🥳🙌', 'Successfully added the data');
     }
@@ -142,4 +130,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WriteEntryScreen;
+export default UpdateEntryScreen;

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import firebase from './firebaseconfig.js';
 
-const WriteEntryScreen = ({ user }) => {
+const SameerEntryScreen = () => {
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [entry, setEntry] = useState('');
@@ -21,18 +20,7 @@ const WriteEntryScreen = ({ user }) => {
     } else if (entry.trim() === '') {
       Alert.alert('Oh Noo 😔', 'You have not added the details.');
     } else {
-      // Format the date as dd-mm-yyyy
-      const formattedDate = date.toLocaleDateString('en-GB');
-  
-      // Save the entry with user information to the database
-      const databaseRef = firebase.database().ref(`entries/${user}`);
-      const newEntryRef = databaseRef.push();
-      newEntryRef.set({
-        date: formattedDate,
-        entry,
-      });
-  
-      console.log('Date:', formattedDate);
+      console.log('Date:', date);
       console.log('Entry:', entry);
       Alert.alert('Hurrah 🎉🥳🙌', 'Successfully added the data');
     }
@@ -68,22 +56,6 @@ const WriteEntryScreen = ({ user }) => {
           </View>
         </View>
       </Modal>
-
-      <TextInput
-        style={[styles.textArea, { textAlignVertical: 'top' }]}
-        multiline
-        numberOfLines={90}
-        placeholder="Write your thoughts here..."
-        value={entry}
-        onChangeText={(text) => setEntry(text)}
-      />
-
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: '#73c2be' }]}
-        onPress={handleSubmit}
-      >
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -101,10 +73,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     padding: 8,
-    backgroundColor: '#B9E0DE',
-    fontSize: 18,
-    borderRadius: 25,
-    // fontWeight: 'bold',
   },
   button1: {
     backgroundColor: '#73c2be',
@@ -112,14 +80,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     marginTop: 50,
-    borderRadius: 25,
   },
   button: {
     backgroundColor: '#73c2be',
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
-    borderRadius: 25,
   },
   buttonText: {
     color: '#fff',
@@ -142,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WriteEntryScreen;
+export default SameerEntryScreen;

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Dear Diary",
-    "slug": "edlabadkarsameer",
+    "slug": "sameer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -29,7 +29,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "92c2e6de-6446-401d-8592-690e3442538c"
+        "projectId": "962ff2e9-52fa-41ad-bf5a-4c0e175747f4"
       }
     },
     "owner": "edlabadkarsameer"
