@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import firebase from './firebaseconfig'; // Import your Firebase configuration
 
@@ -23,48 +23,36 @@ const ReadEntryScreen = ({ user }) => {
     }
   };
 
-  
-const fetchData = async (selectedDate) => {
+  const fetchData = async (selectedDate) => {
     try {
       const formattedDate = selectedDate.toLocaleDateString('en-GB');
-      const entryRef = firebase.database().ref(`entries/${user}`);
-      const snapshot = await entryRef.orderByChild('date').equalTo(formattedDate).once('value');
+      const entryRef = firebase.database().ref(`entries/${user}`).orderByChild('date').equalTo(formattedDate);
+      const snapshot = await entryRef.once('value');
       const entries = snapshot.val();
-  
+      
       if (entries) {
         // Handle the entries data (e.g., update state or display in the UI)
-        const entryKeys = Object.keys(entries);
-        const latestEntryKey = entryKeys[entryKeys.length - 1];
-        const latestEntry = entries[latestEntryKey];
-        console.log('Entries for', formattedDate, latestEntry);
-        setEntry(latestEntry?.entry || '');
-  
-        // Reset typedText before animating for the new entry
-        setTypedText('');
-        animateTextTyping(latestEntry?.entry || '');
+        console.log('Entries for', formattedDate, entries);
+        const fetchedEntry = entries.entry || ''; // Use a default value if entry is not present
+        animateTextTyping(fetchedEntry);
       } else {
         // Handle case when no entries are found for the selected date
         console.log('No entries found for', formattedDate);
         setEntry(''); // Clear the entry state
-        setTypedText(''); // Clear the typedText state
       }
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
   };
-  
 
   const animateTextTyping = (text) => {
     // Simulate typing effect by displaying characters one by one with a delay
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      setTypedText((prevText) => prevText + text[index]);
-      index++;
-
-      if (index === text.length) {
-        clearInterval(typingInterval);
-      }
-    }, 50); // Adjust the typing speed as needed
+    const typingSpeed = 50; // Adjust the typing speed as needed
+    for (let i = 0; i <= text.length; i++) {
+      setTimeout(() => {
+        setTypedText(text.slice(0, i));
+      }, i * typingSpeed);
+    }
   };
 
   return (
@@ -100,9 +88,9 @@ const fetchData = async (selectedDate) => {
 
       {/* Display the typing animated entry */}
       {typedText !== '' && (
-        <View style={styles.entryContainer}>
-          
-          <Text style={styles.entryText}>{typedText}</Text>
+        <View>
+          <Text>Fetched Entry:</Text>
+          <Text>{typedText}</Text>
         </View>
       )}
     </View>
@@ -122,7 +110,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     marginTop: 50,
-    borderRadius: 25,
   },
   buttonText: {
     color: '#fff',
@@ -142,21 +129,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     marginTop: 10,
-  },
-  entryContainer: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#B9E0DE',
-    borderRadius: 25,
-    
-  },
-  entryTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  entryText: {
-    fontSize: 16,
   },
 });
 

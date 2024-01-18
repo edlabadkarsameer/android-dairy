@@ -3,6 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, StyleSheet } from 'react-native';
 import WriteEntryScreen from './WriteEntryScreen';
 import ReadEntryScreen from './ReadEntryScreen';
+import UpdateEntryScreen from './UpdateEntryScreen';
+import AaryaEntryScreen from './AaryaEntryScreen';
+import SameerEntryScreen from './SameerEntryScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 
@@ -20,25 +23,6 @@ const MyComponent = () => {
       );
     }}
 
-
-const ReadScreen = () => (
-  <View style={styles.container}>
-    <Text>Read your entries here</Text>
-  </View>
-);
-  
-const Sameere = () => (
-  <View style={styles.container}>
-    <Text>Sameer's entries here</Text>
-  </View>
-);
-
-const Aaryaa = () => (
-  <View style={styles.container}>
-    <Text>Aarya's entries here</Text>
-  </View>
-);
-
 const Tab = createBottomTabNavigator();
 
 const PersonScreen = ({ route }) => {
@@ -51,7 +35,6 @@ const PersonScreen = ({ route }) => {
     <Tab.Navigator>
       <Tab.Screen
         name="Write"
-        component={WriteEntryScreen}
         options={{
           tabBarLabel: 'Write',
           tabBarIcon: ({ color, size }) => (
@@ -59,10 +42,12 @@ const PersonScreen = ({ route }) => {
           ),
           headerShown: false,
         }}
-      />
+      >
+        {() => <WriteEntryScreen user={isSameerActive ? 'sameer' : 'aarya'} />}
+      </Tab.Screen>
+
       <Tab.Screen
         name="Read"
-        component={ReadEntryScreen}
         options={{
           tabBarLabel: 'Read',
           tabBarIcon: ({ color, size }) => (
@@ -70,30 +55,51 @@ const PersonScreen = ({ route }) => {
           ),
           headerShown: false,
         }}
-      />
+      >
+        {() => <ReadEntryScreen user={isSameerActive ? 'sameer' : 'aarya'} />}
+      </Tab.Screen>
+{/* 
+      <Tab.Screen
+        name="Update"
+        
+        options={{
+          tabBarLabel: 'Update',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="refresh" size={size} color={'#73c2be'} />
+          ),
+          headerShown: false,
+        }}
+      >
+
+{() => <UpdateEntryScreen user={isSameerActive ? 'sameer' : 'aarya'} />}
+      </Tab.Screen> */}
       {isSameerActive && (
         <Tab.Screen
-          name="Aarya"
-          component={Aaryaa}
-          options={{
-            tabBarLabel: 'Aarya',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="ios-person" size={size} color={'#73c2be'} />
-            ),
-          }}
-        />
+        name="Aarya"
+        options={{
+          tabBarLabel: 'Aarya',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="ios-person" size={size} color={'#73c2be'} />
+          ),
+          headerShown: false,
+        }}
+      >
+        {() => <AaryaEntryScreen user={isSameerActive ? 'aarya' : 'aarya'} />}
+      </Tab.Screen>
       )}
       {isAaryaActive && (
         <Tab.Screen
-          name="Sameer"
-          component={Sameere}
-          options={{
-            tabBarLabel: 'Sameer',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="ios-person" size={size} color={'#73c2be'} />
-            ),
-          }}
-        />
+        name="Sameer"
+        options={{
+          tabBarLabel: 'Sameer',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="ios-person" size={size} color={'#73c2be'} />
+          ),
+          headerShown: false,
+        }}
+      >
+        {() => <AaryaEntryScreen user={isSameerActive ? 'sameer' : 'sameer'} />}
+      </Tab.Screen>
       )}
     </Tab.Navigator>
   );

@@ -5,6 +5,24 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ScrollView, RefreshControl } from 'react-native';
 import HomeScreen from './HomeScreen';
 import PersonScreen from './PersonScreen';
+// import firebase from 'firebase/app';
+// import 'firebase/database'; // Import the Firebase Realtime Database module
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCZ2alxerfbtg-8FbBjhNqZDVuFoWzyX6k",
+//   authDomain: "dear-diary-d5014.firebaseapp.com",
+//   databaseURL: "https://dear-diary-d5014-default-rtdb.asia-southeast1.firebasedatabase.app",
+//   projectId: "dear-diary-d5014",
+//   storageBucket: "dear-diary-d5014.appspot.com",
+//   messagingSenderId: "513602561739",
+//   appId: "1:513602561739:web:31f15bd614a0643b8cdd4e",
+//   measurementId: "G-BV6Z851M7D"
+// };
+
+// // Initialize Firebase
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(firebaseConfig);
+// }
 
 const Stack = createStackNavigator();
 
